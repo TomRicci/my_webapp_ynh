@@ -8,6 +8,7 @@
 
 source _common.sh
 source /usr/share/yunohost/helpers
+source ynh_install_php__3
 
 #=================================================
 # MANAGE SCRIPT FAILURE
@@ -60,6 +61,13 @@ ynh_app_setting_set --app=$app --key=with_mysql --value=$with_mysql
 ynh_app_setting_set --app=$app --key=password --value="$password"
 ynh_app_setting_set --app=$app --key=user --value=$user
 ynh_app_setting_set --app=$app --key=final_path --value=$final_path
+
+#=================================================
+# INSTALL PHP
+#=================================================
+ynh_print_info --message="Installing PHP..."
+
+ynh_install_php --phpversion="7.2" --package="$extra_pkg_dependencies"
 
 #=================================================
 # STANDARD MODIFICATIONS
@@ -137,7 +145,7 @@ ynh_script_progression --message="Configuring php-fpm..." --weight=2
 
 # Create a dedicated php-fpm config
 ynh_replace_string --match_string="__USER__" --replace_string="$user" --target_file="../conf/php-fpm.conf"
-ynh_add_fpm_config
+ynh_add_fpm_config --phpversion="7.2"
 
 #=================================================
 # GENERIC FINALIZATION
