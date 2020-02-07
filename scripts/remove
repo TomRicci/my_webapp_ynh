@@ -8,6 +8,8 @@
 
 source _common.sh
 source /usr/share/yunohost/helpers
+source ynh_add_extra_apt_repos__3
+source ynh_install_php__3
 
 #=================================================
 # LOAD SETTINGS
@@ -60,6 +62,13 @@ ynh_script_progression --message="Removing php-fpm configuration..."
 
 # Remove the dedicated php-fpm config
 ynh_remove_fpm_config
+
+#=================================================
+# REMOVE PHP
+#=================================================
+ynh_print_info --message="Remove PHP..."
+
+ynh_remove_php
 
 #=================================================
 # SPECIFIC REMOVE
