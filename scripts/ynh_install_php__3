@@ -68,6 +68,7 @@ ynh_remove_php () {
 		ynh_package_autopurge "php$phpversion php${phpversion}-fpm php${phpversion}-common"
 		# Remove the service from the admin panel
 		yunohost service remove php${phpversion}-fpm
+		ynh_remove_extra_repo --name=extra_php_version
 	fi
 
 	# If no other app uses alternate php versions, remove the extra repo for php
